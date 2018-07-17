@@ -1,80 +1,44 @@
-<link rel="stylesheet" type="text/css" href="../public/assets/css/burger.css">
-
-<script src="./models/burger.js"></script>
-
-<body>
-<h1 class="text-center">EAT DA BURGER</h1>
-
-<br>
-
-<h3 class="text-center">Please Leave your name and a polite message</h3>
-
-<div class="text-center center-block">
-
-	<form id="guestbook-form">
-
-		<label>Name</label><br>
-
-		<input type="text" id="name-input"/><br>
-
-		<label>Message</label><br>
-
-		<textarea id="message-input"></textarea>
-
-		<br>
-
-		<input class="btn btn-secondary" id="submit-this" type="submit">
-
-	</form>
-
+<div class = "text-center">
+	<h1>Burgers To Add</h1>
+	<img src="/static/img/burger.jpg" alt="burger" height="200" width="200">
 </div>
 
-<div id="everything-div">
-
-	<!--
-
-	This does not work out for the guestbook because I am doing a lot of the functionality through the jQuery
-
-
-
-	{{#each messages}}
-
-		<div class="well guest-div">
-
-			<button class="btn btn-danger x-button" data-id={{this.id}}>x</button>
-
-			<p style="font-weight: bold;">{{this.name}}</p>
-
-			<p class="message" data-id={{this.id}}>Message: {{this.message}}</p>
-
-		</div>
-
-	{{/each}}
-
-	-->
-
-</div>
-
-<div id = "update-message-modal" class="modal fade" role="dialog">
-
-	<div class="modal-dialog">
-
-		<div class="modal-content text-center">
-
-			<div class="modal-header">
-
-				<h2>Update Message</h2>
-
-			</div>
-
-			<div class="modal-body"></div>
-
-			<div class="modal-footer"></div>
-
-		</div>
-
+<div class = "row">
+	<div class="col-xs-6 col-sm-4">
 	</div>
+	<div class="col-xs-6 col-sm-3">
+		<h2>Pending Devour</h2>
+		{{#each burgers}}
+			{{#unless this.devoured}}
+				<p class="alert alert-danger" style="width: 40%">
+					{{this.id}}. {{this.burger_name}}
+					<form id="devourBurger" action="/update?_method=PUT" method="POST">
+						<input type="hidden" name="id" value="{{this.id}}">
+						<button type="submit" class="btn btn-warning" id="eatBurger">Devoured</button>
+					</form>
+				</p>
+			{{/unless}}
+		{{/each}}
+	</div>
+	<div class="col-xs-6 col-sm-3">
+		<h2>Devoured</h2>
+		{{#each burgers}}
+			{{#if this.devoured}}
+				<p class="alert alert-info" style="width: 40%">
+					{{this.id}}. {{this.burger_name}}
+				</p>
+			{{/if}}
+		{{/each}}
+	</div>
+	<div class="col-xs-6 col-sm-3">
+	</div>
+</div>
 
-</div>	
-</body>
-
+<div class = "row text-center">
+	<h2>Add a Burger</h2>
+	<form method="POST" action="/create" class="button-size">
+		<textarea type="text" name="burger_name"></textarea>
+		<br>
+		<button type="submit">Submit Burger</button>
+	</form>
+</div>

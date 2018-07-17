@@ -1,13 +1,33 @@
 var connection = require("./connection.js");
-var orm= {
-    all: function(tableInput, cb) {
-      connection.query("SELECT * FROM " + tableInput + ";", function(err, result) {
-          if (err) throw err;
-                
-    })
+var burgerBuy = {
 
-  }
-
+	// selectAll: function(table, cb){
+	// 	thisConnection.query('SELECT * FROM ' + table, function(err,res){
+	// 		if (err){
+	// 			throw err
+	// 		}
+	// 		cb(res);
+	// 	})
+	// },
+	insertOne: function(table, name, cb){
+			thisConnection.query('INSERT INTO ' + table + ' SET ?',{
+				burger_name: name,
+				devoured: false
+			}, function(err,res){
+				if (err) {
+					throw err
+				}
+				cb(res);
+			})
+	},
+	updateOne: function(table, id, cb){
+			thisConnection.query('UPDATE ' + table + ' SET ? WHERE ?',[{
+				devoured: true},{id: id}], function(err,res){
+					if (err){
+						throw err
+					}
+					cb(res);
+			})
+	}
 }
-
-module.exports=orm;
+module.exports['exportAll'] = burgerBuy;
