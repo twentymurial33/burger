@@ -1,14 +1,15 @@
-var connection = require("./connection.js");
+var thisConnection = require('./connection.js')['mysqlconnection'];
+
 var burgerBuy = {
 
-	// selectAll: function(table, cb){
-	// 	thisConnection.query('SELECT * FROM ' + table, function(err,res){
-	// 		if (err){
-	// 			throw err
-	// 		}
-	// 		cb(res);
-	// 	})
-	// },
+	selectAll: function(table, cb){
+		thisConnection.query('SELECT * FROM ' + table, function(err,res){
+			if (err){
+				throw err
+			}
+			cb(res);
+		})
+	},
 	insertOne: function(table, name, cb){
 			thisConnection.query('INSERT INTO ' + table + ' SET ?',{
 				burger_name: name,
@@ -30,4 +31,5 @@ var burgerBuy = {
 			})
 	}
 }
+
 module.exports['exportAll'] = burgerBuy;

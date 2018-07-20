@@ -1,15 +1,8 @@
-ul {
-    padding: 5px;
-    margin: 5px;
-    background: brown;
-  }
-  
-  .h1 {
-    color: brown;
-  }
-  
-  body{
-    background-color: brown;
-  }
-
+body{
+	background-color: yellow;
+	font-size: 24px;
+};
+#head {
+	background-color: yellow;
+}
   
